@@ -3,17 +3,78 @@ package org.example.features.user;
 import org.example.core.Database;
 import org.example.models.User;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class UserDao {
+
+    public void createUser(String email, String username, String password) {
+        Connection connection = Database.get().getConnection();
+        try {
+            PreparedStatement st = connection.prepareStatement("INSERT INTO users (email, username, password) VALUES (?, ?, ?)");
+
+            st.setString(1, email);
+            st.setString(2, username);
+            st.setString(3, password);
+            st.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public String getNextUid(){
+        /**
+         * This method checks which UID is the greater within the users table
+         * then increment it by one, and returns it
+         */
+        Connection connection = Database.get().getConnection();
+        String nextUid = "";
+        try {
+            // PreparedStatement st = connection.prepareStatement("SELECT * FROM users WHERE email=? AND password=?");
+            String query = "SELECT MAX(substring_index(username, '#', -1)) AS ID\n"+
+                            "FROM users\n"+
+                            "WHERE ID REGEXP '^[0-9]+$';\n";
+            PreparedStatement st = connection.prepareStatement(query);
+
+            ResultSet rs = st.executeQuery();
+            // We strip the UID part, convert it to an int, increment this number by one and then convert it back
+            // to a String so we can add leading zeros up to 4 characters total.
+            if(rs.next()){
+                int nextNumber = (Integer.parseInt(rs.getString(1)))+1;
+                nextUid = String.format("%04d", nextNumber);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return nextUid;
+    }
+
+    public User checkEmail(String email) {
+        User user = null;
+
+        Connection connection = Database.get().getConnection();
+        try {
+            PreparedStatement st = connection.prepareStatement("SELECT * FROM users WHERE email=?");
+
+            st.setString(1, email);
+
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                user = mapToUser(rs);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return user;
+    }
+
     public User getUserByCredentials(String email, String password) {
         User user = null;
 
         Connection connection = Database.get().getConnection();
         try {
+            // PreparedStatement st = connection.prepareStatement("SELECT * FROM users WHERE email=? AND password=?");
             PreparedStatement st = connection.prepareStatement("SELECT * FROM users WHERE email=? AND password=?");
 
             st.setString(1, email);

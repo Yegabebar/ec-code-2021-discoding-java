@@ -11,11 +11,11 @@ public class Conf {
     public static final int HTTP_PORT = 8080;
 
     // Database
-    public static final String DB_HOST = getEnv("DISCODING_DB_HOST", "localhost:3306");
+    public static final String DB_HOST = getEnv("DISCODING_DB_HOST", "localhost:3307");
     public static final String DB_NAME = getEnv("DISCODING_DB_NAME", "discoding");
     public static final String DB_URL = "jdbc:mysql://" + DB_HOST + "/" + DB_NAME + "?serverTimezone=Europe/Paris";
-    public static final String DB_USER = getEnv("DISCODING_DB_USER", "root");
-    public static final String DB_PASSWORD = getEnv("DISCODING_DB_PASSWORD", "root");
+    public static final String DB_USER = getEnv("DISCODING_DB_USER", "discoding");
+    public static final String DB_PASSWORD = getEnv("DISCODING_DB_PASSWORD", "discoding");
 
     // Resources
     public static final File RESOURCES_DIR = new File("src/main/resources");

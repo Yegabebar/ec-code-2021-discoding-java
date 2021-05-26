@@ -8,14 +8,11 @@ import org.example.features.friends.FriendController;
 import org.example.features.user.AuthController;
 import org.example.middlewares.AuthMiddleware;
 import org.example.middlewares.LoggerMiddleware;
-import org.example.utils.SessionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.simple.SimpleLogger;
 import spark.Session;
 import spark.Spark;
-
-import java.util.HashMap;
 
 public class App {
     static {
@@ -47,6 +44,9 @@ public class App {
         Spark.get(Conf.ROUTE_LOGIN, (req, res) -> authController.login(req, res));
         Spark.post(Conf.ROUTE_LOGIN, (req, res) -> authController.login(req, res));
 
+        // Signup
+        Spark.get("/signup", (req, res) -> authController.signUp(req, res));
+        Spark.post("/signup", (req, res) -> authController.signUp(req, res));
 
         // Default
         Spark.get("/", (req, res) -> {
