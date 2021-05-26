@@ -53,10 +53,10 @@ public class AuthController {
 
         }
 
-        return Template.render("auth_login.html", model);
+        return "";
     }
 
-    public String login(Request request, Response response) {
+    public String login(Request request, Response response) throws NoSuchAlgorithmException {
         if (request.requestMethod().equals("GET")) {
             Map<String, Object> model = new HashMap<>();
             return Template.render("auth_login.html", model);
@@ -66,10 +66,11 @@ public class AuthController {
         Map<String, String> query = URLUtils.decodeQuery(request.body());
         String email = query.get("email");
         String password = query.get("password");
+        String hash = hashPassword(password);
 
         // Authenticate user
-        User user = userDao.getUserByCredentials(email, password);
-        if (user == null) {
+        User user = userDao.getUserByCredentials(email, hash);
+        if (user == null || !user.isActivated()) {
             logger.info("User not found. Redirect to login");
             response.removeCookie("session");
             response.redirect(Conf.ROUTE_LOGIN);
@@ -90,10 +91,9 @@ public class AuthController {
         User user = userDao.checkEmail(email);
         if(user!=null){
             String confirmation = userDao.confirmEmail(email);
-            if(confirmation.equals("")){
-                System.out.println("A problem occurred");
-            }else{
-                System.out.println("DAO RETURNED: "+confirmation);
+            if(!confirmation.equals("")){
+                Map<String, Object> model = new HashMap<>();
+                return Template.render("auth_login.html", model);
             }
         }
 

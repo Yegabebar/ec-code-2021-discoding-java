@@ -6,7 +6,7 @@
             <h2>Discoding</h2>
             <h3>Inscription</h3>
 
-            <form method="POST" action="/signup" class="custom-form">
+            <form method="POST" action="/signup" class="custom-form" target="hiddenFrame">
 
                 <div class="form-group">
                     <label for="email">Email address</label>
@@ -33,22 +33,27 @@
                     <input type="password" name="password_confirm" id="password_confirm" class="form-control" />
                 </div>
 
+                <div id="success" class="alert alert-success invisible">
+                    <strong>A confirmation email has been sent, please check your inbox</strong>
+                </div>
+                <style>
+                  .hide { position:absolute; top:-1px; left:-1px; width:1px; height:1px; }
+                </style>
+
+                <iframe name="hiddenFrame" class="hide"></iframe>
                 <div class="form-group">
                     <div class="row">
                         <div class="col-md-6">
-                            <input type="submit" name="Valider" class="btn btn-block bg-red" />
+                            <input type="submit" name="Valider" class="btn btn-block bg-red" onclick="displayConfirm()"/>
                         </div>
                         <div class="col-md-6">
-                            <a href="/login" class="btn btn-block bg-blue">Connexion</a>
+                            <a href="/login" class="btn btn-block bg-blue">Back to login</a>
                         </div>
                     </div>
                 </div>
-
-                <span class="error-msg">
-                </span>
             </form>
         </div>
     </div>
 </div>
-
+<script language="JavaScript" src="/js/script.js"></script>
 #end

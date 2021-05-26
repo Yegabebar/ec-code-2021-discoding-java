@@ -97,6 +97,7 @@ public class UserDao {
             st.setString(2, password);
 
             ResultSet rs = st.executeQuery();
+
             if (rs.next()) {
                 user = mapToUser(rs);
             }
@@ -154,7 +155,8 @@ public class UserDao {
                 rs.getString(i++), // email
                 rs.getString(i++), // username,
                 rs.getString(i++), // password
-                rs.getString(i++) // avatarUrl
+                rs.getString(i++), // avatarUrl
+                rs.getBoolean(i++) // confirmed
         );
     }
 

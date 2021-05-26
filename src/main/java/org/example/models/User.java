@@ -6,13 +6,15 @@ public class User {
     private String username;
     private String password;
     private String avatarUrl;
+    private boolean activated;
 
-    public User(int id, String email, String username, String password, String avatarUrl) {
+    public User(int id, String email, String username, String password, String avatarUrl, boolean activated) {
         this.id = id;
         this.email = email;
         this.username = username;
         this.password = password;
         this.avatarUrl = avatarUrl;
+        this.activated = activated;
     }
 
     @Override
@@ -24,6 +26,14 @@ public class User {
                 ", password='" + password + '\'' +
                 ", avatarUrl='" + avatarUrl + '\'' +
                 '}';
+    }
+
+    public boolean isActivated() {
+        return activated;
+    }
+
+    public void setActivated(boolean activated) {
+        this.activated = activated;
     }
 
     public int getId() {
