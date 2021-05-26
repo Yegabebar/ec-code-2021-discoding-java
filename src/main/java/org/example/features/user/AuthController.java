@@ -48,7 +48,7 @@ public class AuthController {
                 username = username+"#"+userDao.getNextUid();
                 String hash = hashPassword(password);
                 userDao.createUser(email, username, hash, avatarUrl);
-                logger.info(Conf.HOSTNAME+":"+Conf.HTTP_PORT+"/register/"+email);
+                logger.info("Confirmation link: "+Conf.HOSTNAME+":"+Conf.HTTP_PORT+"/register/"+email);
             }
 
         }

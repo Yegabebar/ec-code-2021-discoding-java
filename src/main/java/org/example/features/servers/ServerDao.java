@@ -10,6 +10,22 @@ import java.util.List;
 
 public class ServerDao {
 
+    /*public Server getServerByName(String name){
+        Server server = null;
+        Connection connection = Database.get().getConnection();
+        try {
+            PreparedStatement st = connection.prepareStatement("SELECT * FROM servers WHERE name=?");
+            st.setString(1, name);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                server = mapToServer(rs);
+            }
+        } catch (SQLException | ParseException e) {
+            e.printStackTrace();
+        }
+        return server;
+    }*/
+
     public Server getServerById(int server_id){
         Server server = null;
         Connection connection = Database.get().getConnection();
@@ -26,21 +42,28 @@ public class ServerDao {
         return server;
     }
 
-    public void createServer(String name, String avatarUrl, String createdAt, int owner) {
+    public int createServer(String name, String avatarUrl, String createdAt, int owner) {
         Connection connection = Database.get().getConnection();
+        int newID=0;
         try {
-            PreparedStatement st = connection.prepareStatement("INSERT INTO servers (name, avatar_url, created_at, owner) VALUES (?, ?, ?, ?)");
+            String query = "INSERT INTO servers (name, avatar_url, created_at, owner) VALUES (?, ?, ?, ?)";
+            PreparedStatement st = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             st.setString(1, name);
             st.setString(2, avatarUrl);
             st.setString(3, createdAt);
             st.setInt(4, owner);
             st.executeUpdate();
+            ResultSet rs = st.getGeneratedKeys();
+            if (rs.next()) {
+                newID = rs.getInt(1);
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return newID;
     }
 
-    public List<Server> getServersOwned(int owner_id){
+    /*public List<Server> getServersOwned(int owner_id){
         List<Server> servers = new ArrayList<>();
 
         Connection connection = Database.get().getConnection();
@@ -56,6 +79,18 @@ public class ServerDao {
         }
 
         return servers;
+    }*/
+
+    public void joinServer(int user_id, int server_id){
+        Connection connection = Database.get().getConnection();
+        try {
+            PreparedStatement st = connection.prepareStatement("INSERT INTO membership (user_id, server_id) VALUES (?, ?)");
+            st.setInt(1, user_id);
+            st.setInt(2, server_id);
+            st.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public List<Server> getServersJoined(int user_id){
