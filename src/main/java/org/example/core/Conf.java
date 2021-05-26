@@ -8,6 +8,7 @@ import java.io.File;
 public class Conf {
     // General
     public static final boolean DEBUG_MODE = true;
+    public static final String HOSTNAME = "http://localhost";
     public static final int HTTP_PORT = 8080;
 
     // Database

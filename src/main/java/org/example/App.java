@@ -48,6 +48,9 @@ public class App {
         Spark.get("/signup", (req, res) -> authController.signUp(req, res));
         Spark.post("/signup", (req, res) -> authController.signUp(req, res));
 
+        // Account Confirmation
+        Spark.get("/register/:email", (req, res) -> authController.confirmRegistration(req, res));
+        Spark.post("/register/:email", (req, res) -> authController.confirmRegistration(req, res));
         // Default
         Spark.get("/", (req, res) -> {
             Session session = req.session(false);

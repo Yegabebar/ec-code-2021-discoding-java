@@ -32,6 +32,7 @@ public class AuthController {
         Map<String, String> query = URLUtils.decodeQuery(request.body());
         String email = query.get("email");
         String username = query.get("username");
+        String avatarUrl = query.get("avatar");
         String password = query.get("password");
         String passwordConfirm = query.get("password_confirm");
 
@@ -46,7 +47,8 @@ public class AuthController {
 
                 username = username+"#"+userDao.getNextUid();
                 String hash = hashPassword(password);
-                userDao.createUser(email, username, hash);
+                userDao.createUser(email, username, hash, avatarUrl);
+                logger.info(Conf.HOSTNAME+":"+Conf.HTTP_PORT+"/register/"+email);
             }
 
         }
@@ -59,7 +61,8 @@ public class AuthController {
             Map<String, Object> model = new HashMap<>();
             return Template.render("auth_login.html", model);
         }
-
+        System.out.println(URLUtils.decodeQuery(request.body()));
+        System.out.println(request.params());
         Map<String, String> query = URLUtils.decodeQuery(request.body());
         String email = query.get("email");
         String password = query.get("password");
@@ -80,6 +83,23 @@ public class AuthController {
         response.redirect(Conf.ROUTE_AUTHENTICATED_ROOT);
         return null;
     }
+
+    public String confirmRegistration(Request request, Response response){
+        String email = request.params(":email");
+
+        User user = userDao.checkEmail(email);
+        if(user!=null){
+            String confirmation = userDao.confirmEmail(email);
+            if(confirmation.equals("")){
+                System.out.println("A problem occurred");
+            }else{
+                System.out.println("DAO RETURNED: "+confirmation);
+            }
+        }
+
+        return "OK";
+    }
+
     public static String hashPassword(String password) throws NoSuchAlgorithmException {
         password = password+"tH1sC@nTS3RI0u51yb345@1T4M1riT3!§!§§§??";
         byte [] digest = sha256Encrypt(password);

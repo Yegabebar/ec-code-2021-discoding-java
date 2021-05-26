@@ -7,14 +7,16 @@ import java.sql.*;
 
 public class UserDao {
 
-    public void createUser(String email, String username, String password) {
+    public void createUser(String email, String username, String password, String avatarUrl) {
         Connection connection = Database.get().getConnection();
         try {
-            PreparedStatement st = connection.prepareStatement("INSERT INTO users (email, username, password) VALUES (?, ?, ?)");
+            PreparedStatement st = connection.prepareStatement("INSERT INTO users (email, username, password, avatar_url, confirmed) VALUES (?, ?, ?, ?, ?)");
 
             st.setString(1, email);
             st.setString(2, username);
             st.setString(3, password);
+            st.setString(4, avatarUrl);
+            st.setInt(5, 0);
             st.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -47,6 +49,20 @@ public class UserDao {
         }
 
         return nextUid;
+    }
+
+    public String confirmEmail(String email) {
+        Connection connection = Database.get().getConnection();
+        try {
+            PreparedStatement st = connection.prepareStatement("UPDATE users SET confirmed = 1 WHERE email = ?");
+            st.setString(1, email);
+            System.out.println("Statement: "+st);
+            st.executeUpdate();
+            return "OK";
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return "";
     }
 
     public User checkEmail(String email) {
