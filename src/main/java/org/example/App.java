@@ -5,6 +5,7 @@ import org.example.core.Database;
 import org.example.core.Template;
 import org.example.features.conversation.ConversationController;
 import org.example.features.friends.FriendController;
+import org.example.features.servers.ServerController;
 import org.example.features.user.AuthController;
 import org.example.middlewares.AuthMiddleware;
 import org.example.middlewares.LoggerMiddleware;
@@ -27,6 +28,7 @@ public class App {
         final AuthController authController = new AuthController();
         final ConversationController conversationController = new ConversationController();
         final FriendController friendController = new FriendController();
+        final ServerController serverController = new ServerController();
 
         logger.info("Welcome to Discoding Backend!");
 
@@ -51,6 +53,11 @@ public class App {
         // Account Confirmation
         Spark.get("/register/:email", (req, res) -> authController.confirmRegistration(req, res));
         Spark.post("/register/:email", (req, res) -> authController.confirmRegistration(req, res));
+
+        // Servers
+        Spark.get("/create-server/", (req, res) -> serverController.createServer(req, res));
+        Spark.post("/create-server/", (req, res) -> serverController.createServer(req, res));
+
         // Default
         Spark.get("/", (req, res) -> {
             Session session = req.session(false);

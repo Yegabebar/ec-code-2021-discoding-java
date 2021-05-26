@@ -1,0 +1,26 @@
+#parse("dashboard.html")
+#@mainLayout()
+<div class="container-fluid d-flex h-100">
+    <div class="row align-self-center w-100">
+        <div class="col-12 mx-auto auth-container">
+            <h3>Create a server</h3>
+            <form action="/create-server/" method="post">
+                <div class="mb-3">
+                    <label for="server-name" class="form-label text-muted small text-uppercase">Server name</label>
+                    <input type="text" class="form-control" id="server-name" name="server-name"/>
+                </div>
+
+                <div class="mb-3">
+                    <label for="avatar-url" class="form-label text-muted small text-uppercase">Avatar URL</label>
+                    <input type="text" class="form-control" id="avatar-url" name="avatar-url"/>
+                </div>
+
+                <div class="mb-3">
+                    <button type="submit" class="btn btn-primary btn-lg btn-block w-100">Create</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+#end

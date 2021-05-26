@@ -1,0 +1,62 @@
+#macro(mainLayout)
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8" />
+    <title>Discoding</title>
+
+    <link href="/css/partials/partials.css" rel="stylesheet" />
+    <link href="/css/layout/layout.css" rel="stylesheet" />
+
+    <link rel="icon" href="/img/discord_logo.png" type="image/png">
+
+    <link href="/lib/bootstrap-5.0.0/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="/lib/bootstrap-icons-1.5.0/bootstrap-icons.css" rel="stylesheet"/>
+    <link href="/css/style.css" rel="stylesheet"/>
+</head>
+
+
+<body>
+<div id="content">
+    <div class="wrapper d-flex align-items-stretch">
+        <nav id="sidebar">
+            <div class="sidebar-content">
+                <div class="sidebar-menu">
+                    <a href="/friends/" class="list-group-item list-group-item-action border-0">
+                        <img src="/img/friends.png" class="rounded-circle avatar-small mx-2">
+                    </a>
+                    <a href="/create-server/" class="list-group-item list-group-item-action border-0">
+                        <img src="/img/addServer.png" class="rounded-circle avatar-small mx-2">
+                    </a>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Page Content  -->
+        <div id="content">
+            <div class="header">
+                <h2 class="title"></span></h2>
+                <div class="toggle-menu d-block d-md-none">
+                    <button type="button" id="sidebarCollapse" class="btn btn-primary">
+                        <i class="fas fa-bars"></i>
+                        <span class="sr-only">Toggle Menu</span>
+                    </button>
+                </div>
+            </div>
+            <div class="content p-4">
+                $bodyContent
+            </div>
+            <footer>Copyright Discoding</footer>
+        </div>
+    </div>
+
+</div>
+
+<script src="/lib/jquery/jquery-3.5.0.min.js"></script>
+<script src="/lib/bootstrap/js/bootstrap.min.js"></script>
+
+<script src="/js/script.js"></script>
+</body>
+
+</html>
+#end

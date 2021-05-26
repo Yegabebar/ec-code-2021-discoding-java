@@ -56,7 +56,7 @@ public class UserDao {
         try {
             PreparedStatement st = connection.prepareStatement("UPDATE users SET confirmed = 1 WHERE email = ?");
             st.setString(1, email);
-            System.out.println("Statement: "+st);
+
             st.executeUpdate();
             return "OK";
         } catch (SQLException e) {
