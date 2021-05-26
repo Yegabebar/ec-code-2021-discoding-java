@@ -1,0 +1,42 @@
+#parse("base.html")
+#@mainLayout()
+<div class="container-fluid">
+    <div class="row">
+
+        #parse( "partial_conversation_list.html" )
+
+        <div class="col-sm-6 col-md-9 mt-2">
+            <div class="row">
+                <div class="col-10">
+                    <h2><i class="bi-people-fill mx-2"></i>Friends</h2>
+                </div>
+                <div class="col-2 align-self-center d-flex justify-content-end">
+                    <a href="/friends/add" class="btn btn-success">Add a Friend</a>
+                    </btn>
+                </div>
+            </div>
+            <ul class="list-group list-group-flush mt-2">
+                #foreach($friend in $friends)
+                <li class="d-flex justify-content-between list-group-item">
+                    <div>
+                        #if ($friend.getAvatarUrl())
+                        #set($avatarUrl = $friend.getAvatarUrl())
+                        #else
+                        #set($avatarUrl = "/lib/bootstrap-icons-1.5.0/person-fill.svg")
+                        #end
+                        <img src="$avatarUrl" class="rounded-circle avatar-small mx-2"/>
+                        $friend.getUsername()
+                    </div>
+
+                    <div class="align-self-center">
+                        <a href="/conversations/start_with_user?interlocutor_id=$friend.getId()">Message</a>
+                    </div>
+                </li>
+                #end
+            </ul>
+        </div>
+
+    </div>
+</div>
+#end
+

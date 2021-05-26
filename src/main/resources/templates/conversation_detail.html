@@ -1,0 +1,62 @@
+#parse("base.html")
+#@mainLayout()
+
+<div class="container-fluid">
+    <div class="row">
+
+        #parse( "partial_conversation_list.html" )
+
+        <div class="col-sm-6 col-md-9 mt-2">
+            <div class="row m-auto">
+                <h3>$interlocutor.getUsername()</h3>
+                #foreach($message in $messages)
+
+                #if ($message.getUserId() == $user.getId())
+                    #set($msgUser = $user)
+                #else
+                    #set($msgUser = $interlocutor)
+                #end
+
+                <div class="card flex-row flex-wrap">
+                    <div class="card-header" style="background-color: inherit;">
+
+                        #if ($msgUser.getAvatarUrl())
+                        #set($avatarUrl = $msgUser.getAvatarUrl())
+                        #else
+                        #set($avatarUrl = "/lib/bootstrap-icons-1.5.0/person-fill.svg")
+                        #end
+                        <img src="$avatarUrl" class="rounded-circle avatar mx-2"/>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-title d-flex">
+                            <div class="flex-grow-1 fw-bold">
+                                $msgUser.getUsername()
+                            </div>
+                            <div class="text-muted fs-6">
+                                $message.getCreatedAt()
+                            </div>
+                        </div>
+                        <div class="card-text">
+                            $message.getContent()
+                        </div>
+                    </div>
+                </div>
+                #end
+
+            </div>
+            <form class="d-flex mt-3" action="/conversations/$conversationId/add_message" method="post">
+                <div class="flex-grow-1">
+                    <input type="text" class="form-control" id="content" name="content"/>
+                </div>
+                <div class="mx-2">
+                    <button id="sendMessage" type="submit" class="btn btn-secondary">Envoyer</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+</div>
+
+<script src="/js/page_conversation_detail.js"></script>
+#end

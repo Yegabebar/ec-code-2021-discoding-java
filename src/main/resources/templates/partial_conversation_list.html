@@ -1,0 +1,27 @@
+<div class="col-sm-6 col-md-3 friends-list">
+
+    <ul class="list-group mt-3 mb-3">
+        <li class="list-group-item">
+            <a href="/friends/">
+                <i class="bi-people-fill mx-2"></i>Friends
+            </a>
+        </li>
+    </ul>
+    <ul class="list-group border-0">
+        #foreach($conv in $conversations)
+        <li class="list-group-item border-0 #if ($conv.getId() == $conversationId) active #end">
+
+            <a href="/conversations/$conv.getId()"
+                class="list-group-item list-group-item-action border-0">
+                #if ($conv.getInterlocutorAvatarUrl())
+                #set($avatarUrl = $conv.getInterlocutorAvatarUrl())
+                #else
+                #set($avatarUrl = "/lib/bootstrap-icons-1.5.0/person-fill.svg")
+                #end
+                <img src="$avatarUrl" class="rounded-circle avatar-small mx-2"/>
+                $conv.getInterlocutorUsername()
+            </a>
+        </li>
+        #end
+    </ul>
+</div>
