@@ -2,7 +2,7 @@ package org.example.features.friends;
 
 import org.example.core.Template;
 import org.example.features.conversation.ConversationDao;
-import org.example.features.user.AuthController;
+import org.example.features.servers.ServerDao;
 import org.example.features.user.UserDao;
 import org.example.models.User;
 import org.example.utils.SessionUtils;
@@ -11,8 +11,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import spark.Request;
 import spark.Response;
-import spark.Session;
-import spark.Spark;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -24,6 +22,7 @@ public class FriendController {
     ConversationDao conversationDao = new ConversationDao();
     FriendDao friendDao = new FriendDao();
     UserDao userDao = new UserDao();
+    ServerDao serverDao = new ServerDao();
 
     public String list(Request request, Response response) {
         int userId = SessionUtils.getSessionUserId(request);
@@ -35,6 +34,8 @@ public class FriendController {
         model.put("conversationId", 0);
         model.put("conversations", conversationDao.getAllConversationsForUser(userId));
         model.put("friends", friendDao.getFriendsForUserId(userId));
+        model.put("servers", serverDao.getServersJoined(userId));
+
         return Template.render("friend_list.html", model);
     }
 

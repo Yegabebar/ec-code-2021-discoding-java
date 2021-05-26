@@ -34,6 +34,7 @@ public class ServerDao {
             st.setInt(1, server_id);
             ResultSet rs = st.executeQuery();
             if (rs.next()) {
+                System.out.println("Result set: "+rs.getString(2));
                 server = mapToServer(rs);
             }
         } catch (SQLException | ParseException e) {
@@ -101,8 +102,9 @@ public class ServerDao {
             st.setInt(1, user_id);
             ResultSet rs = st.executeQuery();
             while(rs.next()){
-                int server_id = rs.getInt(1);
-                servers.add(getServerById(server_id));
+                int server_id = rs.getInt(2);
+                Server server = getServerById(server_id);
+                servers.add(server);
             }
         } catch (SQLException e) {
             e.printStackTrace();

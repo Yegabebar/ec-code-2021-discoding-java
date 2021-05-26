@@ -28,6 +28,11 @@
                     <a href="/create-server/" class="list-group-item list-group-item-action border-0">
                         <img src="/img/addServer.png" class="rounded-circle avatar-small mx-2">
                     </a>
+                    #foreach($server in $servers)
+                    <a href="" class="list-group-item list-group-item-action border-0">
+                        <img src="$server.getAvatarUrl()" alt="$server.getName()">
+                    </a>
+                    #end
                 </div>
             </div>
         </nav>
