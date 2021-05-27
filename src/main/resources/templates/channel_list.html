@@ -1,0 +1,37 @@
+#parse("dashboard.html")
+#@mainLayout()
+<div class="container-fluid">
+    <div class="wrapper d-flex align-items-stretch">
+        <h2>#current-server</h2>
+        <nav id="sidebar">
+            <div class="sidebar-content">
+                <div class="sidebar-menu">
+                    #channels
+                    #foreach($channel in $channels)
+                    <a href="/channel/channel.getId()" class="list-group-item list-group-item-action border-0">
+                        #channel.getName()
+                    </a>
+                    #end
+                </div>
+            </div>
+        </nav>
+
+        <!-- Page Content  -->
+        <div id="content">
+            <div class="header">
+                <h2 class="title"></span></h2>
+                <div class="toggle-menu d-block d-md-none">
+                    <button type="button" id="sidebarCollapse" class="btn btn-primary">
+                        <i class="fas fa-bars"></i>
+                        <span class="sr-only">Toggle Menu</span>
+                    </button>
+                </div>
+            </div>
+            <div class="content p-4">
+
+            </div>
+        </div>
+    </div>
+
+</div>
+#end

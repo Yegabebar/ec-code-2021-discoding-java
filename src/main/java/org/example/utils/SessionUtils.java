@@ -8,6 +8,14 @@ import spark.Spark;
 
 public class SessionUtils {
 
+    /*public static void putInSession(String name, Object object, Request request, Response response){
+        try {
+            request.session().attribute(name,object);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }*/
+
     public static void createSession(User user, Request request, Response response) {
         Session session = request.session(true);
         session.attribute("user_id", user.getId());
