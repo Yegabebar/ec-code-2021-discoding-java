@@ -10,17 +10,25 @@ import java.util.List;
 
 public class FriendDao {
 
+
+
     public List<User> getFriendsForUserId(int userId) {
         List<User> users = new ArrayList<>();
+        UserDao userDao = new UserDao();
+        User user;
+        int friendId;
         Connection connection = Database.get().getConnection();
         try {
-            PreparedStatement st = connection.prepareStatement("SELECT users.* FROM users LEFT JOIN friends ON users.id = friends.friend_user_id WHERE friends.user_id = ?");
-
+            PreparedStatement st = connection.prepareStatement("SELECT * FROM friends WHERE user_id OR friend_user_id = ?");
             st.setInt(1, userId);
-
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                User user = UserDao.mapToUser(rs);
+                if(rs.getInt(2)==userId){
+                    friendId = rs.getInt(3);
+                }else{
+                    friendId = rs.getInt(2);
+                }
+                user = userDao.getUserById(friendId);
                 users.add(user);
             }
         } catch (SQLException e) {
