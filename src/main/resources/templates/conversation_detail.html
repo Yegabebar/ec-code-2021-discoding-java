@@ -10,11 +10,11 @@
     <div class="row">
 
         #parse( "partial_conversation_list.html" )
-        <div class="col-sm-6 col-md-9">
+        <div class="col-sm-6 col-md-9" style="height: 80vh;">
             <h3>$interlocutor.getUsername()</h3>
-            <div class="" style="height: 100%; display: inline-block;">
-                <div id="messages" class="test members-panel-1" style="height: 40vh;">
-                    <ul class="list-unstyled" style="height: 100%;">
+            <div class="" style=" width: 60vw">
+                <div id="messages" class="test members-panel-1" style="height: 80vh;">
+                    <ul class="list-unstyled" style="height: 80vh%;">
                         #foreach($message in $messages)
 
                         #if ($message.getUserId() == $user.getId())
@@ -51,14 +51,14 @@
                         #end
                     </ul>
                 </div>
-            <form class="d-flex mt-3 position-static" action="/conversations/$conversationId/add_message" method="post">
-                <div class="flex-grow-1">
-                    <input type="text" class="form-control" id="content" name="content"/>
-                </div>
-                <div class="mx-2">
-                    <button id="sendMessage" type="submit" class="btn btn-secondary">Envoyer</button>
-                </div>
-            </form>
+                <form class="d-flex mt-3 position-static" action="/conversations/$conversationId/add_message" method="post">
+                    <div class="flex-grow-1">
+                        <input type="text" class="form-control" id="content" name="content"/>
+                    </div>
+                    <div class="mx-2">
+                        <button id="sendMessage" type="submit" class="btn btn-secondary">Envoyer</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
