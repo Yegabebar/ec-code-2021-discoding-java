@@ -11,12 +11,16 @@
     <link href="/lib/bootstrap-icons-1.5.0/bootstrap-icons.css" rel="stylesheet"/>
     <link href="/css/style.css" rel="stylesheet"/>
 </head>
-
-
-<body>
+<style>
+    .test{
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+</style>
+<body class="position-fixed">
 <div>
     <div class="wrapper d-flex align-items-stretch">
-        <nav id="sidebar">
+        <nav id="sidebar" class="test" style="height: 100vh;">
             <div class="sidebar-content">
                 <div class="sidebar-menu">
                     <a href="/friends/" class="list-group-item list-group-item-action border-0">
@@ -27,7 +31,7 @@
                     </a>
                     #foreach($server in $servers)
                     <a href="/server/$server.getId()" class="list-group-item list-group-item-action border-0">
-                        <img src="$server.getAvatarUrl()" alt="$server.getName()">
+                        <img class="rounded-circle avatar-small mx-2" src="$server.getAvatarUrl()" alt="$server.getName()">
                     </a>
                     #end
                 </div>
@@ -48,7 +52,7 @@
             <div class="content p-4">
                 $bodyContent
             </div>
-            <footer>Copyright Discoding</footer>
+            <footer class="fixed-bottom">Copyright Discoding</footer>
         </div>
     </div>
 

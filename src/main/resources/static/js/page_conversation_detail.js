@@ -22,16 +22,8 @@ function refreshMessages(){
       dataType: "text",
       success: function(result){
         dom = stringToHTML(result);
-        console.log("DOM: ",dom)
         messages = dom.children[0].children[0].children[1].children[1].children[0].children[0].children[1].children[1].children[0]
-        for(item of messages['children']){
-            // Condition if message not already in DOM
-            console.log(item)
-
-            //document.getElementById("messages")[0].innerHTML += item.outerHTML
-
-        }
-        document.getElementById("messages").innerHTML = messages.outerHTML
+        document.getElementById("messages").innerHTML = messages.innerHTML
       }
   });
 

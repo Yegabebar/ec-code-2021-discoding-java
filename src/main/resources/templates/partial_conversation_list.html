@@ -1,5 +1,10 @@
 <div class="col-sm-6 col-md-3 friends-list">
-
+    <style>
+        .test{
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+    </style>
     <ul class="list-group mt-3 mb-3">
         <li class="list-group-item">
             <a href="/friends/">
@@ -7,7 +12,7 @@
             </a>
         </li>
     </ul>
-    <ul class="list-group border-0">
+    <ul class="list-group border-0 test" style="height: 80vh;">
         #foreach($conv in $conversations)
         <li class="list-group-item border-0 #if ($conv.getId() == $conversationId) active #end">
 
