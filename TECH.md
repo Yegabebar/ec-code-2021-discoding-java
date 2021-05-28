@@ -10,3 +10,4 @@ I've decided to add it to the project because of the following benefits:
 - It has 1M+ topics on stack overflow
 
 Note: I've chosen the minified version for the sake of performance. It's a lighter version than the regular one (because of its compressed format) for faster loading times in client web browsers.
+Note2: Version 3.6.0 has no known security issues as of yet.

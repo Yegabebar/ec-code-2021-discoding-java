@@ -64,10 +64,10 @@ public class FriendController {
         }
         logger.info("User = " + newFriend);
         if (friendDao.isAlreadyFriend(userId, newFriend.getId())) {
-            model.put("message", "D\u00E9j\u00E0 ami avec " + newFriend.getUsername() + " !");
+            model.put("message", "Already friend with " + newFriend.getUsername() + " !");
         } else {
             friendDao.addFriend(userId, newFriend.getId());
-            model.put("message", "Ami " + newFriend.getUsername() + " ajouté !");
+            model.put("message", "Friend " + newFriend.getUsername() + " added !");
         }
         return Template.render("friend_add.html", model);
     }
