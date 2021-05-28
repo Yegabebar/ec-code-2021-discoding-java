@@ -1,6 +1,13 @@
 #parse("dashboard.html")
 #@mainLayout()
 <div class="container-fluid">
+    <style>
+        .scroll{
+            overflow-y: auto;
+            overflow-x: hidden;
+            height: 100vh
+        }
+    </style>
     <div class="row">
 
         #parse( "partial_conversation_list.html" )
@@ -15,7 +22,7 @@
                     </btn>
                 </div>
             </div>
-            <ul class="list-group list-group-flush mt-2">
+            <ul class="list-group list-group-flush mt-2 scroll">
                 #foreach($friend in $friends)
                 <li class="d-flex justify-content-between list-group-item">
                     <div>

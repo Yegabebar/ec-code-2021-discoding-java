@@ -47,6 +47,7 @@ public class FriendController {
 
         if (request.requestMethod().equals("GET")) {
             model.put("message", "");
+            model.put("servers", serverDao.getServersJoined(userId));
             return Template.render("friend_add.html", model);
         }
 
@@ -62,7 +63,6 @@ public class FriendController {
             friendDao.addFriend(userId, newFriend.getId());
             model.put("message", "Ami " + newFriend.getUsername() + " ajouté !");
         }
-
         return Template.render("friend_add.html", model);
     }
 }

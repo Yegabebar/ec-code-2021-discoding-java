@@ -1,8 +1,9 @@
 <div class="col-sm-6 col-md-3 friends-list">
     <style>
-        .test{
+        .scroll{
             overflow-y: auto;
             overflow-x: hidden;
+            height: 80vh;
         }
     </style>
     <ul class="list-group mt-3 mb-3" style="width= 20vw">
@@ -12,7 +13,7 @@
             </a>
         </li>
     </ul>
-    <ul class="list-group border-0 test" style="height: 80vh;">
+    <ul class="list-group border-0 scroll">
         #foreach($conv in $conversations)
         <li class="list-group-item border-0 #if ($conv.getId() == $conversationId) active #end">
 

@@ -2,6 +2,7 @@ package org.example.features.conversation;
 
 import org.example.core.Template;
 import org.example.features.messages.MessageDao;
+import org.example.features.servers.ServerDao;
 import org.example.features.user.UserDao;
 import org.example.models.Message;
 import org.example.utils.SessionUtils;
@@ -24,6 +25,7 @@ public class ConversationController {
     final ConversationDao conversationDao = new ConversationDao();
     final MessageDao messageDao = new MessageDao();
     final UserDao userDao = new UserDao();
+    ServerDao serverDao = new ServerDao();
 
     public String getOrCreateConversationWithUser(Request request, Response response) {
         int userId = SessionUtils.getSessionUserId(request);
@@ -59,6 +61,7 @@ public class ConversationController {
         model.put("user", userDao.getUserById(conversation.getUserId()));
         model.put("interlocutor", userDao.getUserById(conversation.getInterlocutorId()));
         model.put("messages", messages);
+        model.put("servers", serverDao.getServersJoined(userId));
         return Template.render("conversation_detail.html", model);
     }
 
