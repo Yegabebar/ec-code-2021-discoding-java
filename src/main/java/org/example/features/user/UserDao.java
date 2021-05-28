@@ -23,11 +23,11 @@ public class UserDao {
         }
     }
 
+    /**
+     * This method checks which UID is the greater within the users table
+     * then increment it by one, and returns it
+     */
     public String getNextUid(){
-        /**
-         * This method checks which UID is the greater within the users table
-         * then increment it by one, and returns it
-         */
         Connection connection = Database.get().getConnection();
         String nextUid = "";
         try {
@@ -41,7 +41,13 @@ public class UserDao {
             // We strip the UID part, convert it to an int, increment this number by one and then convert it back
             // to a String so we can add leading zeros up to 4 characters total.
             if(rs.next()){
-                int nextNumber = (Integer.parseInt(rs.getString(1)))+1;
+                int number;
+                try {
+                    number = Integer.parseInt(rs.getString(1));
+                } catch (NumberFormatException e) {
+                    number = 0;
+                }
+                int nextNumber = (number)+1;
                 nextUid = String.format("%04d", nextNumber);
             }
         } catch (SQLException e) {
@@ -50,6 +56,7 @@ public class UserDao {
 
         return nextUid;
     }
+
 
     public String confirmEmail(String email) {
         Connection connection = Database.get().getConnection();
