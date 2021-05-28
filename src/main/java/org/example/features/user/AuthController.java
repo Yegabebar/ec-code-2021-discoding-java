@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import spark.Request;
 import spark.Response;
+import spark.Session;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -37,6 +38,11 @@ public class AuthController {
         String email = query.get("email");
         String username = query.get("username");
         String avatarUrl = query.get("avatar");
+        if(!avatarUrl.substring(avatarUrl.lastIndexOf(".")+1).equals("png") ||
+                !avatarUrl.substring(avatarUrl.lastIndexOf(".")+1).equals("jpeg") ||
+                !avatarUrl.substring(avatarUrl.lastIndexOf(".")+1).equals("jpg")){
+            avatarUrl = "/img/discord_logo.png";
+        }
         String password = query.get("password");
         String passwordConfirm = query.get("password_confirm");
 
@@ -107,6 +113,21 @@ public class AuthController {
         }
 
         return "OK";
+    }
+
+    /**
+     * Removes session and cookue, then disconnects the user
+     */
+    public String logout(Request request, Response response) {
+        Session session = request.session(false);
+        if (session != null) {
+            session.invalidate();
+        }
+        response.removeCookie("session");
+        response.removeCookie("JSESSIONID");
+        response.redirect(Conf.ROUTE_LOGIN);
+
+        return "";
     }
 
     /**

@@ -19,8 +19,9 @@ public class FriendDao {
         int friendId;
         Connection connection = Database.get().getConnection();
         try {
-            PreparedStatement st = connection.prepareStatement("SELECT * FROM friends WHERE user_id OR friend_user_id = ?");
+            PreparedStatement st = connection.prepareStatement("SELECT * FROM friends WHERE user_id = ? OR friend_user_id = ?");
             st.setInt(1, userId);
+            st.setInt(2, userId);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 // Populates the current user's friend list regardless if the current user is the person that initiated

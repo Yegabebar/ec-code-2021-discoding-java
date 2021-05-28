@@ -55,11 +55,16 @@ public class FriendController {
         Map<String, String> query = URLUtils.decodeQuery(request.body());
         String username = query.get("username");
 
-        // FIXME What happens if the user does not exist?
+        // Fixed: Notifies the user if the requested user does not exists
         User newFriend = userDao.findUserWithUsername(username);
+        if(newFriend==null){
+            model.put("message", "User not found");
+            model.put("servers", serverDao.getServersJoined(userId));
+            return Template.render("friend_add.html", model);
+        }
         logger.info("User = " + newFriend);
         if (friendDao.isAlreadyFriend(userId, newFriend.getId())) {
-            model.put("message", "Déjà ami avec " + newFriend.getUsername() + " !");
+            model.put("message", "D\u00E9j\u00E0 ami avec " + newFriend.getUsername() + " !");
         } else {
             friendDao.addFriend(userId, newFriend.getId());
             model.put("message", "Ami " + newFriend.getUsername() + " ajouté !");

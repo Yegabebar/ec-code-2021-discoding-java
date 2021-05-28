@@ -25,11 +25,13 @@ public class App {
     private static final Logger logger = LoggerFactory.getLogger(App.class);
 
     /**
-     * Note about security:
-     * A big part of the user input sanitization is implicitly done by the use of PreparedStatement
+     * Notes about security:
+     * - A big part of the user input sanitization is implicitly done by the use of PreparedStatement
      * in all Dao methods.
-     * An additional security measure has been set regarding the email addresses, for more information
+     * - An additional security measure has been set regarding the email addresses, for more information
      * please see the MiscController
+     * - Check added on user signup to check if the given avatar url is not anything other than png/jpg/jpeg.
+     * It prevents the user to try using links to malicious script files
      */
 
     public static void main(String[] args) {
@@ -58,6 +60,9 @@ public class App {
         // Login
         Spark.get(Conf.ROUTE_LOGIN, (req, res) -> authController.login(req, res));
         Spark.post(Conf.ROUTE_LOGIN, (req, res) -> authController.login(req, res));
+
+        // Logout
+        Spark.get("/logout", (req, res) -> authController.logout(req, res));
 
         // Signup
         Spark.get("/signup", (req, res) -> authController.signUp(req, res));
