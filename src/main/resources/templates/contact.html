@@ -4,37 +4,37 @@
     <div class="row align-self-center w-100">
         <div class="col-4 mx-auto auth-container">
             <h2>Discoding</h2>
-            <h3>Inscription</h3>
+            <h3>Contact</h3>
 
-            <form method="POST" action="/signup" class="custom-form" target="hiddenFrame">
+            <form method="GET" action="/contact/" class="custom-form" target="hiddenFrame">
 
                 <div class="form-group">
                     <label for="email">Email address</label>
-                    <input type="email" name="email" value="" id="email" class="form-control" />
+                    <input type="email" name="email" id="email" class="form-control" />
                 </div>
 
                 <div class="form-group">
-                    <label for="username">Username</label>
-                    <input type="text" name="username" value="" id="username" class="form-control" />
+                    <label for="first-name">First name</label>
+                    <input type="text" name="first-name" id="first-name" class="form-control" />
                 </div>
 
                 <div class="form-group">
-                    <label for="avatar">Link to avatar</label>
-                    <input type="text" name="avatar" value="" id="avatar" class="form-control" />
+                    <label for="last-name">Last name</label>
+                    <input type="text" name="last-name" id="last-name" class="form-control" />
                 </div>
 
                 <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" name="password" id="password" class="form-control" />
+                    <label for="subject">Object</label>
+                    <input type="text" name="subject" id="subject" class="form-control" />
                 </div>
 
                 <div class="form-group">
-                    <label for="password_confirm">Confirm password</label>
-                    <input type="password" name="password_confirm" id="password_confirm" class="form-control" />
+                    <label for="content">Write us here!</label>
+                    <textarea name="content" id="content" class="form-control vh-30"></textarea>
                 </div>
 
                 <div id="success" class="alert alert-success invisible">
-                    <strong>A confirmation email has been sent, please check your inbox</strong>
+                    <strong>Your email has been sent, we will review it shortly</strong>
                 </div>
                 <style>
                   .hide { position:absolute; top:-1px; left:-1px; width:1px; height:1px; }
@@ -44,12 +44,11 @@
                 <div class="form-group">
                     <div class="row">
                         <div class="col-md-6">
-                            <input type="submit" name="Validate" class="btn btn-block bg-red" onclick="displayConfirm()"/>
+                            <Button type="submit" name="Validate" class="btn btn-block bg-red" onclick="displayConfirm()">Submit</button>
                         </div>
                         <div class="col-md-6">
                             <a href="/login" class="btn btn-block bg-blue">Back to login</a>
                         </div>
-                        <div class="col-md-6"><a href="/contact/" class="btn btn-block">Contact us?</a></div>
                     </div>
                 </div>
             </form>

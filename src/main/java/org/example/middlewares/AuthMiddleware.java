@@ -13,6 +13,7 @@ public class AuthMiddleware implements Middleware {
         String path = request.pathInfo();
         // Handle routes with no auth first
         if (path.equals("/") ||
+                path.equals("/contact/") ||
                 path.equals("/register/") ||
                 path.equals("/login") ||
                 path.equals("/signup")) {

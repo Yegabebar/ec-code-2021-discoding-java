@@ -73,7 +73,6 @@ public class ServerController {
             System.out.println(channel.getName());
         });
         model.put("servers", serverDao.getServersJoined(userId));
-        System.out.println("Server: "+ model.get("currentServer"));
         return Template.render("channel_list.html", model);
     }
 

@@ -38,7 +38,6 @@ public class ChannelDao {
             st.setInt(1, channel_id);
             ResultSet rs = st.executeQuery();
             if (rs.next()) {
-                System.out.println("Result set: "+rs.getString(1));
                 channel = mapToChannel(rs);
             }
         } catch (SQLException | ParseException e) {

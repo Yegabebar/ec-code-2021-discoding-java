@@ -6,6 +6,7 @@ import org.example.core.Template;
 import org.example.features.channels.ChannelController;
 import org.example.features.conversation.ConversationController;
 import org.example.features.friends.FriendController;
+import org.example.features.misc.MiscController;
 import org.example.features.servers.ServerController;
 import org.example.features.user.AuthController;
 import org.example.middlewares.AuthMiddleware;
@@ -30,6 +31,7 @@ public class App {
         final ConversationController conversationController = new ConversationController();
         final FriendController friendController = new FriendController();
         final ServerController serverController = new ServerController();
+        final MiscController miscController = new MiscController();
         final ChannelController channelController = new ChannelController();
 
         logger.info("Welcome to Discoding Backend!");
@@ -61,6 +63,11 @@ public class App {
         Spark.get("/create-server/", (req, res) -> serverController.createServer(req, res));
         Spark.post("/create-server/", (req, res) -> serverController.createServer(req, res));
         Spark.get("/server/:id", (req, res) -> serverController.getServer(req, res));
+
+        // Miscellaneous
+        Spark.get("/contact/", (req, res) -> miscController.sendEmail(req, res));
+        Spark.post("/contact/", (req, res) -> miscController.sendEmail(req, res));
+
         // Channels
         // Spark.get("/server/:server_id/channel/", (req, res) -> channelController.list(req, res));
 
