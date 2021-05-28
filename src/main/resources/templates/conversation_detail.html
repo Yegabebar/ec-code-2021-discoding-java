@@ -41,8 +41,17 @@
                                         <div class="text-muted fs-6">
                                             $message.getCreatedAt()
                                         </div>
+                                    #if ($message.getUserId() == $user.getId())
+                                        <div class="mt-n1 ps-4 pb-1">
+                                            <a href="/conversations/$message.getConversationId()/delete/$message.getId()"
+                                               class="fs-5 text-decoration-none text-muted "
+                                            >⛌</a>
+                                        </div>
+                                    #else
+                                        <div class="mt-n1 ps-5 pb-1"></div>
+                                    #end
                                     </div>
-                                    <div class="card-text">
+                                    <div class="card-text text-break">
                                         $message.getContent()
                                     </div>
                                 </div>

@@ -35,6 +35,7 @@ public class App {
         logger.info("Welcome to Discoding Backend!");
 
         // Conversations
+        Spark.get("/conversations/:id/delete/:msgid", (req, res) -> conversationController.deleteMessage(req, res));
         Spark.get("/conversations/start_with_user", (req, res) -> conversationController.getOrCreateConversationWithUser(req, res));
         Spark.post("/conversations/:id/add_message", (req, res) -> conversationController.addMessage(req, res));
         Spark.get("/conversations/:id", (req, res) -> conversationController.detail(req, res));

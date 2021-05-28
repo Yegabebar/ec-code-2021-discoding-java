@@ -1,9 +1,7 @@
 package org.example.features.conversation;
 
-import org.example.core.Conf;
 import org.example.core.Template;
 import org.example.features.messages.MessageDao;
-import org.example.features.user.AuthController;
 import org.example.features.user.UserDao;
 import org.example.models.Message;
 import org.example.utils.SessionUtils;
@@ -79,4 +77,19 @@ public class ConversationController {
         response.redirect("/conversations/" + conversationId);
         return null;
     }
+
+    public String deleteMessage(Request request, Response response) {
+        int conversationId = Integer.parseInt(request.params(":id"));
+        int messageId = Integer.parseInt(request.params(":msgid"));
+        System.out.println("Params: "+request.params());
+        System.out.println("QueryParams: "+request.queryParams());
+        System.out.println("To return to: "+conversationId);
+        System.out.println("To delete: "+messageId);
+        messageDao.deleteMessageById(messageId);
+
+
+        response.redirect("/conversations/" + conversationId);
+        return null;
+    }
+
 }
