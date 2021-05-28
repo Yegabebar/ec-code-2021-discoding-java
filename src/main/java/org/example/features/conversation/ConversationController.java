@@ -12,8 +12,8 @@ import spark.Request;
 import spark.Response;
 import spark.Spark;
 
-import java.sql.Date;
-import java.util.Calendar;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -68,11 +68,14 @@ public class ConversationController {
 
         Map<String, String> query = URLUtils.decodeQuery(request.body());
         String content = query.get("content");
+        // Timestamp fix is here
+        Date now = new Date();
+        SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd  HH:mm:ss");
+        String timeStamp = DATE_FORMAT.format(now);
 
-        Date now = new Date(Calendar.getInstance().getTimeInMillis());
-        Message message = new Message(0, conversationId, userId, content, now.toString());
+        Message message = new Message(0, conversationId, userId, content, timeStamp);
         messageDao.createMessage(message);
-
+        conversationDao.updateLastModification(conversationId, timeStamp);
 
         response.redirect("/conversations/" + conversationId);
         return null;

@@ -1,14 +1,25 @@
 package org.example.features.conversation;
 
 import org.example.core.Database;
-import org.example.features.user.UserDao;
-import org.example.models.User;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ConversationDao {
+
+    public void updateLastModification(int id, String timestamp){
+        Connection connection = Database.get().getConnection();
+        try {
+            PreparedStatement st = connection.prepareStatement("UPDATE conversations set updated_at = ? WHERE id = ?");
+            st.setString(1, timestamp);
+            st.setInt(2, id);
+            st.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public int getConversationBetweenUsers(int userId, int userId2) {
         int conversationId = 0;
         Connection connection = Database.get().getConnection();
