@@ -8,6 +8,10 @@ import java.util.List;
 
 public class ConversationDao {
 
+    /**
+     * This method is here to update the updated_at field from the conversations table in order to make
+     * the instruction "ORDER BY c.updated_at DESC" relevant. (please see the query from getAllConversationsForUser())
+     */
     public void updateLastModification(int id, String timestamp){
         Connection connection = Database.get().getConnection();
         try {

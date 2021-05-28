@@ -34,7 +34,6 @@ public class ServerDao {
             st.setInt(1, server_id);
             ResultSet rs = st.executeQuery();
             if (rs.next()) {
-                System.out.println("Result set: "+rs.getString(2));
                 server = mapToServer(rs);
             }
         } catch (SQLException | ParseException e) {
@@ -64,24 +63,10 @@ public class ServerDao {
         return newID;
     }
 
-    /*public List<Server> getServersOwned(int owner_id){
-        List<Server> servers = new ArrayList<>();
-
-        Connection connection = Database.get().getConnection();
-        try {
-            PreparedStatement st = connection.prepareStatement("SELECT * FROM servers WHERE owner = ?");
-            st.setInt(1, owner_id);
-            ResultSet rs = st.executeQuery();
-            while (rs.next()) {
-                servers.add(mapToServer(rs));
-            }
-        } catch (SQLException | ParseException e) {
-            e.printStackTrace();
-        }
-
-        return servers;
-    }*/
-
+    /**
+     * Used to register a user into a given server. This method will bascially be fired when a user creates a new server
+     * or when a server accepts an invite link. (Invitation system not implemented yet!)
+     */
     public void joinServer(int user_id, int server_id){
         Connection connection = Database.get().getConnection();
         try {
@@ -94,6 +79,9 @@ public class ServerDao {
         }
     }
 
+    /**
+     * Returns a Servers list where the user is a member, used to populate the sidebar (dashboard template)
+     */
     public List<Server> getServersJoined(int user_id){
         List<Server> servers = new ArrayList<>();
         Connection connection = Database.get().getConnection();

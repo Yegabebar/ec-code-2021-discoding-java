@@ -24,6 +24,14 @@ public class App {
 
     private static final Logger logger = LoggerFactory.getLogger(App.class);
 
+    /**
+     * Note about security:
+     * A big part of the user input sanitization is implicitly done by the use of PreparedStatement
+     * in all Dao methods.
+     * An additional security measure has been set regarding the email addresses, for more information
+     * please see the MiscController
+     */
+
     public static void main(String[] args) {
         initialize();
 

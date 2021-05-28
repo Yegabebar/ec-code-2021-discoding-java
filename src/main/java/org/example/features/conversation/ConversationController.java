@@ -61,6 +61,7 @@ public class ConversationController {
         model.put("user", userDao.getUserById(conversation.getUserId()));
         model.put("interlocutor", userDao.getUserById(conversation.getInterlocutorId()));
         model.put("messages", messages);
+        // Used to populate the sidebar with the user's server list (created or joined) anywhere on the site
         model.put("servers", serverDao.getServersJoined(userId));
         return Template.render("conversation_detail.html", model);
     }
@@ -71,28 +72,27 @@ public class ConversationController {
 
         Map<String, String> query = URLUtils.decodeQuery(request.body());
         String content = query.get("content");
-        // Timestamp fix is here
+        // The timestamp fix for all sent messages is here
         Date now = new Date();
         SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd  HH:mm:ss");
         String timeStamp = DATE_FORMAT.format(now);
 
         Message message = new Message(0, conversationId, userId, content, timeStamp);
         messageDao.createMessage(message);
+        // The conversation order now work thanks to this method
         conversationDao.updateLastModification(conversationId, timeStamp);
 
         response.redirect("/conversations/" + conversationId);
         return null;
     }
 
+    /**
+     * Deletes a message, no confirmation sent as it only returns an empty String for now
+     */
     public String deleteMessage(Request request, Response response) {
         int conversationId = Integer.parseInt(request.params(":id"));
         int messageId = Integer.parseInt(request.params(":msgid"));
-        System.out.println("Params: "+request.params());
-        System.out.println("QueryParams: "+request.queryParams());
-        System.out.println("To return to: "+conversationId);
-        System.out.println("To delete: "+messageId);
         messageDao.deleteMessageById(messageId);
-
 
         response.redirect("/conversations/" + conversationId);
         return null;

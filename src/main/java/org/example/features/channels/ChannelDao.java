@@ -10,14 +10,15 @@ import java.util.List;
 
 public class ChannelDao {
 
+    /**
+     * This method will be used to build a list of channels to display when entering a server
+     */
     public List<Channel> getChannelsByServerId(int server_id){
         List<Channel> channels = new ArrayList<>();
-
         Connection connection = Database.get().getConnection();
         try {
             PreparedStatement st = connection.prepareStatement("SELECT * FROM channels WHERE server_id = ? ");
             st.setInt(1, server_id);
-
             ResultSet rs = st.executeQuery();
 
             while (rs.next()) {
@@ -30,6 +31,9 @@ public class ChannelDao {
         return channels;
     }
 
+    /**
+     * Will be used in case if we need to get a particular channel, e.g. in a controller
+     */
     public Channel getChannelById(int channel_id){
         Channel channel = null;
         Connection connection = Database.get().getConnection();
@@ -46,6 +50,9 @@ public class ChannelDao {
         return channel;
     }
 
+    /**
+     * Creates a channel each time it's called, then returns the newly-created channel's ID
+     */
     public int createChannel(int serverId, String name, String createdAt) {
         Connection connection = Database.get().getConnection();
         int newID=0;
@@ -67,7 +74,11 @@ public class ChannelDao {
         return newID;
     }
 
-
+    /**
+     * This method will be used to get the messages belonging to a given channel.
+     * It's pretty much just a copy/paste from another method for now and it will
+     * need a corresponding table in DB to be used.
+     */
     // Get messages in a given channel
     /*public List<> getMessagesByChannelId(int media_id){
         List<> messages = new ArrayList<>();
@@ -88,6 +99,10 @@ public class ChannelDao {
 
         return episodes;
     }*/
+
+    /**
+     * Converts a ResultSet to a Channel
+     */
     private Channel mapToChannel(ResultSet rs) throws SQLException, ParseException {
         return new Channel(
                 rs.getInt(1), // id

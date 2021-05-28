@@ -47,6 +47,7 @@ public class FriendController {
 
         if (request.requestMethod().equals("GET")) {
             model.put("message", "");
+            // Used to populate the sidebar with the user's server list (created or joined) anywhere on the site
             model.put("servers", serverDao.getServersJoined(userId));
             return Template.render("friend_add.html", model);
         }

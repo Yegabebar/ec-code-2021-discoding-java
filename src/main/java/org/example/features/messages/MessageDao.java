@@ -37,6 +37,9 @@ public class MessageDao {
         );
     }
 
+    /**
+     * Deletes a message without any kind of confirmation
+     */
     public void deleteMessageById(int message_id){
         Connection connection = Database.get().getConnection();
         try {

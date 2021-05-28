@@ -20,12 +20,11 @@ public class ChannelController {
         int userId = SessionUtils.getSessionUserId(request);
         Server currentServer = serverDao.getServerById(id);
 
-        // response.redirect("/friends/");
         Map<String, Object> model = new HashMap<>();
         model.put("currentServer", currentServer);
         model.put("channels", channelDao.getChannelsByServerId(id));
+        // Used to populate the sidebar with the user's server list (created or joined) anywhere on the site
         model.put("servers", serverDao.getServersJoined(userId));
-        System.out.println("Server: "+ model.get("currentServer"));
         return Template.render("channel_list.html", model);
     }
 }

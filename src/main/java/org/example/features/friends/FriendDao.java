@@ -23,6 +23,8 @@ public class FriendDao {
             st.setInt(1, userId);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
+                // Populates the current user's friend list regardless if the current user is the person that initiated
+                // the friend request or not
                 if(rs.getInt(2)==userId){
                     friendId = rs.getInt(3);
                 }else{
